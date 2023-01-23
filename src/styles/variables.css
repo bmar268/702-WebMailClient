@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    /* fonts */
+    --open-sans: 'Open Sans', sans-serif;
+    --nunito: 'Nunito', sans-serif;
+
+    /* colors */
+    --accent: #e54065;
+    --background: #f4f5f9;
+    --border: #cfd2dc;
+    --text: #636363;
+    --filter-btn: #e1e4ea;
+    --read-background: #f2f2f2;
+}
