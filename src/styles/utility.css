@@ -1,0 +1,24 @@
+/* flex */
+.u_fx-row,
+.u_fx-col {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.u_fx-row {
+    flex-direction: row;
+}
+
+.u_fx-col {
+    flex-direction: column;
+}
+
+.u_fx-al-fs {
+    align-items: flex-start;
+}
+
+.u_fx-cn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
