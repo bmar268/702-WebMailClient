@@ -16,7 +16,7 @@ export const EmailCardList = ({ showEmailBody, setShowEmailBody }) => {
         } 
         
         setShowEmailBody({ show: true, emailId: id});
-        
+
         dispatch(addToRead(id));
         dispatch(setEmailDetails({ 
             initial: name[0].toUpperCase(),
@@ -39,6 +39,7 @@ export const EmailCardList = ({ showEmailBody, setShowEmailBody }) => {
                         <EmailCard 
                             key={id} 
                             currEmail={currEmail}
+                            showEmailBody={showEmailBody}
                             onClick={() => emailCardClickHandler(id, from.name, date, subject)}
                         />  
                     );
