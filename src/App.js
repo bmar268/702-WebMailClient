@@ -9,11 +9,18 @@ function App() {
 
     return (
         <div className="App page-wr u_fx-col">
-            <header className="filter-wr u_fx-row u_fx-al-cn">
-                <h3 className="filter-heading">Filter By:</h3>
-                <button className="filter-btn">Unread</button>
-                <button className="filter-btn">Read</button>
-                <button className="filter-btn">Favorites</button>
+            <header className="u_fx-row u_fx-js-sb">
+                <section className="filter-wr u_fx-row u_fx-al-cn">
+                    <h3 className="filter-heading">Filter By:</h3>
+                    <button className="filter-btn">Unread</button>
+                    <button className="filter-btn">Read</button>
+                    <button className="filter-btn">Favorites</button>
+                </section>
+                <section className="filter-wr u_fx-row u_fx-al-cn">
+                    <h3 className="filter-heading">Page:</h3>  
+                    <button className="filter-btn">1</button>
+                    <button className="filter-btn">2</button>
+                </section>
             </header>
             <div className="page-content-wr page-content-grid">
                 <aside className="aside-ec-list">
