@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { fetchEmailList } from "./redux/features/data/listDataSlice";
 
 function App() {
+    const [currFilter, setCurrFilter] = useState("");
     const [currPage, setCurrPage] = useState(1);
     const [showEmailBody, setShowEmailBody] = useState({ show: false, emailId: ""});
 
@@ -18,24 +19,47 @@ function App() {
     return (
         <div className="App page-wr u_fx-col">
             <header className="u_fx-row u_fx-js-sb">
-                <section className="filter-wr u_fx-row u_fx-al-cn">
-                    <h3 className="filter-heading">Filter By:</h3>
-                    <button className="filter-btn">Unread</button>
-                    <button className="filter-btn">Read</button>
-                    <button className="filter-btn">Favorites</button>
-                </section>
-                <section className="filter-wr u_fx-row u_fx-al-cn">
-                    <h3 className="filter-heading">Page:</h3>  
+                <section className="header-sec u_fx-row u_fx-al-cn">
+                    <h3>Filter By:</h3>
                     <button 
-                        className="filter-btn"
+                        className={`header-btn ${currFilter === "UNREAD" ? "header-btn-selected" : ""}`}
+                        onClick={() => setCurrFilter("UNREAD")}
+                    >
+                        Unread
+                    </button>
+                    <button 
+                        className={`header-btn ${currFilter === "READ" ? "header-btn-selected" : ""}`}
+                        onClick={() => setCurrFilter("READ")}
+                    >
+                        Read
+                    </button>
+                    <button 
+                        className={`header-btn ${currFilter === "FAVORITES" ? "header-btn-selected" : ""}`}
+                        onClick={() => setCurrFilter("FAVORITES")}
+                    >
+                        Favorites
+                    </button>
+                    <button 
+                        className="header-btn"
+                        onClick={() => setCurrFilter("")}
+                    >
+                        Clear
+                    </button>
+                </section>
+
+                <section className="header-sec u_fx-row u_fx-al-cn">
+                    <h3>Page:</h3>  
+                    <button 
+                        className={`header-btn ${currPage === 1 ? "header-btn-selected" : ""}`}
                         onClick={() => setCurrPage(1)}
                     >1</button>
                     <button 
-                        className="filter-btn"
+                        className={`header-btn ${currPage === 2 ? "header-btn-selected" : ""}`}
                         onClick={() => setCurrPage(2)}
                     >2</button>
                 </section>
             </header>
+
             <div className={`page-content-wr ${showEmailBody.show ? "page-content-grid" : ""}`}>
                 <aside className="aside-ec-list">
                     <EmailCardList 
@@ -43,6 +67,7 @@ function App() {
                         setShowEmailBody={setShowEmailBody}
                     />
                 </aside>
+
                 {
                     showEmailBody.show &&
                     <main className="main-email-body">
