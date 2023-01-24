@@ -1,11 +1,17 @@
-import { EmailCard } from "./components/email-card";
-import { EmailBody, EmailCardList } from "./components";
+import { EmailCardList } from "./components";
 import "./styles/styles.css"
 import "./styles/app.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchEmailList } from "./redux/features/data/listDataSlice";
 
 function App() {
-    const [showEmailBody, setShowEmailBody] = useState(false);
+    const [currPage, setCurrPage] = useState(1);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchEmailList(currPage));
+    }, [currPage]);
 
     return (
         <div className="App page-wr u_fx-col">
@@ -18,17 +24,23 @@ function App() {
                 </section>
                 <section className="filter-wr u_fx-row u_fx-al-cn">
                     <h3 className="filter-heading">Page:</h3>  
-                    <button className="filter-btn">1</button>
-                    <button className="filter-btn">2</button>
+                    <button 
+                        className="filter-btn"
+                        onClick={() => setCurrPage(1)}
+                    >1</button>
+                    <button 
+                        className="filter-btn"
+                        onClick={() => setCurrPage(2)}
+                    >2</button>
                 </section>
             </header>
-            <div className="page-content-wr page-content-grid">
+            <div className="page-content-wr">
                 <aside className="aside-ec-list">
                     <EmailCardList />
                 </aside>
-                <main className="main-email-body email-body-hide email-body-visible">
+                {/* <main className="main-email-body email-body-hide email-body-visible">
                     <EmailBody />
-                </main>
+                </main> */}
 
             </div>
         </div>

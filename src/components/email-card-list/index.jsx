@@ -1,13 +1,24 @@
 import { EmailCard } from "..";
 import "./email-card-list.css"
+import { useSelector } from "react-redux";
 
 export const EmailCardList = () => {
+    const { loading, emailList } = useSelector((state) => state.emailList);
+
     return(
         <div className="ec-list-wr u_fx-col">
         {
-            Array(15).fill(0).map((item, id) => {
+            loading &&
+            <p>Loading mails...</p>
+        }
+        {
+            emailList.length > 0 && !loading && 
+            emailList?.map((currEmail) => {
                 return(
-                  <EmailCard key={id} />  
+                    <EmailCard 
+                        key={currEmail.id} 
+                        currEmail={currEmail}
+                    />  
                 );
             })
         }

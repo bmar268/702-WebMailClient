@@ -10,11 +10,12 @@
 
 .email-card-content {
     gap: 0.25rem;
+    width: 85%;
 }
 
 .email-card-content > p {
     display: block;
-    max-width: 80%;
+    width: 98%;
     white-space: nowrap;
     overflow-x: hidden !important;
     text-overflow: ellipsis;
