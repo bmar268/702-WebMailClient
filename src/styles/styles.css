@@ -13,4 +13,5 @@ body {
     color: var(--text);
     font-family: var(--nunito);
     scroll-behavior: smooth;
+    padding: 1.5rem 2rem 0 2rem;
 }

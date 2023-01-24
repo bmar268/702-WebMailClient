@@ -1,0 +1,58 @@
+.page-wr {
+    gap: 1rem;
+}
+
+.filter-wr {
+    color: var(--black);
+    gap: 0.5rem;
+}
+
+.filter-heading {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-right: 0.5rem;
+}
+
+.filter-btn {
+    background-color: transparent;
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+    border: 2px solid transparent;
+    border-radius: var(--br-cr);
+    outline: none;
+}
+
+.filter-btn:hover {
+    cursor: pointer;
+    background-color: var(--filter-btn);
+    border-color: var(--border);
+}
+
+.page-content-grid{
+    display: grid;
+    grid-template-columns: 33% 67%;
+    gap: 1.5rem;
+}
+
+/* .aside-ec-list,
+.main-email-body {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.aside-ec-list::-webkit-scrollbar,
+.main-email-body::-webkit-scrollbar {
+    width: 3px;
+}
+
+.aside-ec-list::-webkit-scrollbar-thumb,
+.main-email-body::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 3px;
+}
+
+.aside-ec-list::-webkit-scrollbar-track,
+.main-email-body::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 3px;
+} */

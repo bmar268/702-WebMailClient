@@ -3,8 +3,8 @@
     color: var(--white);
     font-size: 1.5rem;
     font-weight: bold;
-    height: 3rem;
-    width: 3rem;
+    max-height: 3rem;
+    min-width: 3rem;
     border-radius: 50%;
 }
 
@@ -12,7 +12,6 @@
     background-color: var(--card-background);
     border: 1px solid var(--border);
     border-radius: var(--br-sq);
-    margin: 1rem 2rem;
     gap: 1rem;
 }
 
