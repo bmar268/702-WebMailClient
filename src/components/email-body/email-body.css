@@ -1,0 +1,34 @@
+.email-body-wr {
+    min-height: 90vh;
+    padding: 2rem 3.5rem 2rem 1.75rem  ;
+}
+
+.email-body-wr.c_email-wr,
+.email-body {
+    gap: 1.25rem;
+}
+
+.email-body {
+    width: 90%;
+}
+
+.email-body-btn {
+    background-color: var(--accent);
+    color: var(--white);
+    height: fit-content;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    outline: none;
+    border-radius: var(--br-cr);
+}
+
+.email-body-btn:hover {
+    cursor: pointer;
+    transform: scale(0.97);
+}
+
+.email-body-content > p {
+    text-align: justify;
+    text-justify: distribute;
+    margin: 0.75rem 0;
+}

@@ -1,27 +1,7 @@
 .email-card-wr {
-    background-color: var(--card-background);
     padding: 0.75rem 1.5rem;
-    border: 1px solid var(--border);
-    border-radius: var(--br-sq);
-    margin: 1rem 2rem;
-    gap: 1rem;
-}
-
-.avatar {
-    background-color: var(--accent);
-    color: var(--white);
-    font-size: 1.5rem;
-    font-weight: bold;
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
 }
 
 .email-card-content {
     gap: 0.25rem;
-}
-
-.email-card-favorite {
-    color: var(--accent);
-    margin-left: 2rem;
 }

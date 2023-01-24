@@ -1,0 +1,23 @@
+.c_avatar {
+    background-color: var(--accent);
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+}
+
+.c_email-wr {
+    background-color: var(--card-background);
+    border: 1px solid var(--border);
+    border-radius: var(--br-sq);
+    margin: 1rem 2rem;
+    gap: 1rem;
+}
+
+.c_email-favorite {
+    color: var(--accent);
+    font-weight: bold;
+    margin-left: 2rem;
+}

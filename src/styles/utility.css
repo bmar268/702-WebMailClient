@@ -13,8 +13,12 @@
     flex-direction: column;
 }
 
-.u_fx-al-fs {
-    align-items: flex-start;
+.u_fx-js-sb {
+    justify-content: space-between;
+}
+
+.u_fx-al-cn {
+    align-items: center;
 }
 
 .u_fx-cn {
