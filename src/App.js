@@ -1,4 +1,4 @@
-import { EmailCardList } from "./components";
+import { EmailCardList, EmailBody } from "./components";
 import "./styles/styles.css"
 import "./styles/app.css"
 import { useEffect, useState } from "react";
@@ -7,6 +7,8 @@ import { fetchEmailList } from "./redux/features/data/listDataSlice";
 
 function App() {
     const [currPage, setCurrPage] = useState(1);
+    const [showEmailBody, setShowEmailBody] = useState({ show: false, emailId: ""});
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -34,14 +36,19 @@ function App() {
                     >2</button>
                 </section>
             </header>
-            <div className="page-content-wr">
+            <div className={`page-content-wr ${showEmailBody.show ? "page-content-grid" : ""}`}>
                 <aside className="aside-ec-list">
-                    <EmailCardList />
+                    <EmailCardList 
+                        showEmailBody={showEmailBody}
+                        setShowEmailBody={setShowEmailBody}
+                    />
                 </aside>
-                {/* <main className="main-email-body email-body-hide email-body-visible">
-                    <EmailBody />
-                </main> */}
-
+                {
+                    showEmailBody.show &&
+                    <main className="main-email-body">
+                        <EmailBody />
+                    </main>
+                }
             </div>
         </div>
     );

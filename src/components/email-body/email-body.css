@@ -27,7 +27,7 @@
     transform: scale(0.97);
 }
 
-.email-body-content > p {
+.email-body-content > div > p {
     text-align: justify;
     text-justify: distribute;
     margin: 0.75rem 0;

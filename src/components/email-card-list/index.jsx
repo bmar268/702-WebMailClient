@@ -1,27 +1,46 @@
+import { useDispatch, useSelector } from "react-redux";
+import { fetchEmailBody, setEmailDetails } from "../../redux/features/data/bodyDataSlice";
 import { EmailCard } from "..";
 import "./email-card-list.css"
-import { useSelector } from "react-redux";
+import { getDateTimeFormat } from "../../helper-functions/get-datetime-format";
 
-export const EmailCardList = () => {
-    const { loading, emailList } = useSelector((state) => state.emailList);
+export const EmailCardList = ({ showEmailBody, setShowEmailBody }) => {
+    const { show, emailId } = showEmailBody;
+    const { listLoading, listLoadingError, emailList } = useSelector((state) => state.emailList);
+    const dispatch = useDispatch();
+
+    const emailBodyDisplayHandler = (id, name, date, subject) => {
+        if (show && emailId === id) {
+            return setShowEmailBody({ show: false, emailId: ""});
+        } 
+        
+        setShowEmailBody({ show: true, emailId: id});
+        dispatch(setEmailDetails({ 
+            initial: name[0].toUpperCase(),
+            subject: subject,
+            date: getDateTimeFormat(date),
+        }))
+        dispatch(fetchEmailBody(id));
+    }
 
     return(
         <div className="ec-list-wr u_fx-col">
-        {
-            loading &&
-            <p>Loading mails...</p>
-        }
-        {
-            emailList.length > 0 && !loading && 
-            emailList?.map((currEmail) => {
-                return(
-                    <EmailCard 
-                        key={currEmail.id} 
-                        currEmail={currEmail}
-                    />  
-                );
-            })
-        }
+            {listLoading && <p>Loading mails...</p>}
+            {listLoadingError && <p>Unable to load emails.</p>}
+
+            {
+                emailList.length > 0 && !listLoading && 
+                emailList?.map((currEmail) => {
+                    const { id, from, date, subject } = currEmail;
+                    return(
+                        <EmailCard 
+                            key={id} 
+                            currEmail={currEmail}
+                            onClick={() => emailBodyDisplayHandler(id, from.name, date, subject)}
+                        />  
+                    );
+                })
+            }
         </div>
     );
 }
