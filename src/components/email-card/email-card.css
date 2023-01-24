@@ -4,6 +4,10 @@
     margin: 0 0.25rem 1rem 0;
 }
 
+.email-card-read {
+    background-color: var(--read-background);
+}
+
 .email-card-wr:hover {
     border-color: var(--accent);
 }

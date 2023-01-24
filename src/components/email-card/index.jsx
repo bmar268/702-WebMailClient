@@ -1,17 +1,20 @@
+import { useSelector } from "react-redux";
 import { getDateTimeFormat } from "../../helper-functions/get-datetime-format";
 import "../components-utility.css";
 import "./email-card.css";
 
 export const EmailCard = ({ currEmail, onClick }) => {
-    const { from, date, subject, short_description } = currEmail;
+    const { id, from, date, subject, short_description } = currEmail;
     const { name, email } = from;
+
+    const { favorites, read } = useSelector((state) => state.emailList);
 
     const initial = name[0].toUpperCase()
     const formattedDate = getDateTimeFormat(date);
     
     return(
         <div 
-            className="email-card-wr c_email-wr u_fx-row"
+            className={`email-card-wr ${read.includes(id) ? "email-card-read" : ""} c_email-wr u_fx-row`}
             onClick={onClick}
         >
             <div className="c_avatar u_fx-cn">{initial}</div>
@@ -22,7 +25,10 @@ export const EmailCard = ({ currEmail, onClick }) => {
                 <p>{short_description}</p>
                 <section className="u_fx-row">
                     <p>{formattedDate}</p>
-                    {/* <p className="c_email-favorite"><strong>Favorite</strong></p> */}
+                    {
+                        favorites.includes(id) &&
+                        <p className="c_email-favorite"><strong>Favorite</strong></p>
+                    }
                 </section>
             </div>
         </div>

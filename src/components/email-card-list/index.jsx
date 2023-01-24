@@ -3,18 +3,21 @@ import { fetchEmailBody, setEmailDetails } from "../../redux/features/data/bodyD
 import { EmailCard } from "..";
 import "./email-card-list.css"
 import { getDateTimeFormat } from "../../helper-functions/get-datetime-format";
+import { addToRead } from "../../redux/features/data/listDataSlice";
 
 export const EmailCardList = ({ showEmailBody, setShowEmailBody }) => {
     const { show, emailId } = showEmailBody;
     const { listLoading, listLoadingError, emailList } = useSelector((state) => state.emailList);
     const dispatch = useDispatch();
 
-    const emailBodyDisplayHandler = (id, name, date, subject) => {
+    const emailCardClickHandler = (id, name, date, subject) => {
         if (show && emailId === id) {
             return setShowEmailBody({ show: false, emailId: ""});
         } 
         
         setShowEmailBody({ show: true, emailId: id});
+        
+        dispatch(addToRead(id));
         dispatch(setEmailDetails({ 
             initial: name[0].toUpperCase(),
             subject: subject,
@@ -36,7 +39,7 @@ export const EmailCardList = ({ showEmailBody, setShowEmailBody }) => {
                         <EmailCard 
                             key={id} 
                             currEmail={currEmail}
-                            onClick={() => emailBodyDisplayHandler(id, from.name, date, subject)}
+                            onClick={() => emailCardClickHandler(id, from.name, date, subject)}
                         />  
                     );
                 })

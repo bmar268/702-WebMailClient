@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../components-utility.css";
 import "./email-body.css";
 import parse from "html-react-parser";
+import { addToFavorites, removeFromFavorites } from "../../redux/features/data/listDataSlice";
 
 export const EmailBody = () => {
     const { 
@@ -13,6 +14,8 @@ export const EmailBody = () => {
         date
     } = useSelector((state) => state.emailBody);
     const { id, body } = emailBody;
+    const { favorites } = useSelector((state) => state.emailList);
+    const dispatch = useDispatch();
 
     const bodyContent = body ? parse(body) : "";
 
@@ -28,12 +31,27 @@ export const EmailBody = () => {
                 <div className="email-body u_fx-col">
                     <header className="email-body-header u_fx-row u_fx-js-sb u_fx-al-cn">
                         <h1 className="email-body-subject">{subject}</h1>
-                        <button className="email-body-btn">Mark as favorite</button>
+                        {
+                            favorites.includes(id) ?
+                            <button 
+                                className="email-body-btn"
+                                onClick={() => dispatch(removeFromFavorites(id))}
+                            >
+                                Remove from favorite
+                            </button> :
+                            <button 
+                                className="email-body-btn"
+                                onClick={() => dispatch(addToFavorites(id))}
+                            >Mark as favorite</button>
+                        }
                     </header>
 
                     <section className="u_fx-row">
                         <p>{date}</p>
-                        <p className="c_email-favorite">Favorite</p>
+                        {
+                            favorites.includes(id) &&
+                            <p className="c_email-favorite">Favorite</p>
+                        }
                     </section>
 
                     <section className="email-body-content">
