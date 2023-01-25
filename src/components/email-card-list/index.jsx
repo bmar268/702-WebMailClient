@@ -33,9 +33,18 @@ export const EmailCardList = ({ showEmailBody, setShowEmailBody, currFilter }) =
 
     return(
         <div className="ec-list-wr u_fx-col">
-            {listLoading && <p>Loading mails...</p>}
-            {listLoadingError && <p>Unable to load emails.</p>}
-            {filteredEmailList.length === 0 && <p>No email matches this filter.</p>}
+            {
+                listLoading && 
+                <p>Loading mails...</p>
+            }
+            {
+                listLoadingError && 
+                <p>Unable to load emails.</p>
+            }
+            {
+                filteredEmailList.length === 0 && !listLoading &&
+                <p>No email matches this filter.</p>
+            }
             {
                 filteredEmailList.length > 0 && !listLoading && 
                 filteredEmailList?.map((currEmail) => {
