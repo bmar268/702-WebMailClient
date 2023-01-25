@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getEmailBody } from "../../APIcallFunctions/getEmailBody";
+import { getEmailBody } from "../APIcallFunctions/getEmailBody";
 
 const initialState = {
     bodyLoading: false,

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getEmailList } from "../../APIcallFunctions/getEmailList";
+import { getEmailList } from "../APIcallFunctions/getEmailList";
 
 const initialState = {
     listLoading: false,

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import emailListDataSlice from "../features/data/listDataSlice";
-import emailBodyDataSlice from "../features/data/bodyDataSlice";
+import emailListDataSlice from "../features/listDataSlice";
+import emailBodyDataSlice from "../features/bodyDataSlice";
 
 export const store = configureStore({
     reducer: {

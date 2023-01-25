@@ -1,15 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchEmailBody, setEmailDetails } from "../../redux/features/data/bodyDataSlice";
+import { addToRead, fetchEmailBody, setEmailDetails } from "../../redux";
+import { getDateTimeFormat, getFilteredEmailList } from "../../helper-functions";
 import { EmailCard } from "..";
-import "./email-card-list.css"
-import { getDateTimeFormat } from "../../helper-functions/get-datetime-format";
-import { addToRead } from "../../redux/features/data/listDataSlice";
-import { getFilteredEmailList } from "../../helper-functions/get-filtered-list";
 
 export const EmailCardList = ({ showEmailBody, setShowEmailBody, currFilter }) => {
     const { show, emailId } = showEmailBody;
-
-    const { listLoading, listLoadingError, emailList, favorites, read } = useSelector((state) => state.emailList);
+    const { 
+        listLoading, 
+        listLoadingError, 
+        emailList, 
+        favorites, 
+        read 
+    } = useSelector((state) => state.emailList);
     const dispatch = useDispatch();
 
     const filteredEmailList = getFilteredEmailList(emailList, currFilter, favorites, read)

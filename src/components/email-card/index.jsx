@@ -1,10 +1,16 @@
 import { useSelector } from "react-redux";
-import { getDateTimeFormat } from "../../helper-functions/get-datetime-format";
+import { getDateTimeFormat } from "../../helper-functions";
 import "../components-utility.css";
 import "./email-card.css";
 
 export const EmailCard = ({ currEmail, showEmailBody, onClick }) => {
-    const { id, from, date, subject, short_description } = currEmail;
+    const { 
+        id, 
+        from, 
+        date, 
+        subject, 
+        short_description 
+    } = currEmail;
     const { name, email } = from;
 
     const { favorites, read } = useSelector((state) => state.emailList);

@@ -1,9 +1,9 @@
-import { EmailCardList, EmailBody } from "./components";
-import "./styles/styles.css"
-import "./styles/app.css"
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchEmailList } from "./redux/features/data/listDataSlice";
+import { EmailCardList, EmailBody } from "./components";
+import { fetchEmailList } from "./redux";
+import "./styles/styles.css"
+import "./styles/app.css"
 
 function App() {
     const [currFilter, setCurrFilter] = useState("");
@@ -68,7 +68,6 @@ function App() {
                         currFilter={currFilter}
                     />
                 </aside>
-
                 {
                     showEmailBody.show &&
                     <main className="main-email-body">
