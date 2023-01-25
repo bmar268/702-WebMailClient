@@ -41,9 +41,9 @@ function App() {
                     </button>
                     <button 
                         className="header-btn"
-                        onClick={() => setCurrFilter("")}
+                        onClick={() => setCurrFilter("CLEAR")}
                     >
-                        Clear
+                        Clear filter
                     </button>
                 </section>
 
@@ -65,6 +65,7 @@ function App() {
                     <EmailCardList 
                         showEmailBody={showEmailBody}
                         setShowEmailBody={setShowEmailBody}
+                        currFilter={currFilter}
                     />
                 </aside>
 

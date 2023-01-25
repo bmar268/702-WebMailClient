@@ -4,11 +4,15 @@ import { EmailCard } from "..";
 import "./email-card-list.css"
 import { getDateTimeFormat } from "../../helper-functions/get-datetime-format";
 import { addToRead } from "../../redux/features/data/listDataSlice";
+import { getFilteredEmailList } from "../../helper-functions/get-filtered-list";
 
-export const EmailCardList = ({ showEmailBody, setShowEmailBody }) => {
+export const EmailCardList = ({ showEmailBody, setShowEmailBody, currFilter }) => {
     const { show, emailId } = showEmailBody;
-    const { listLoading, listLoadingError, emailList } = useSelector((state) => state.emailList);
+
+    const { listLoading, listLoadingError, emailList, favorites, read } = useSelector((state) => state.emailList);
     const dispatch = useDispatch();
+
+    const filteredEmailList = getFilteredEmailList(emailList, currFilter, favorites, read)
 
     const emailCardClickHandler = (id, name, date, subject) => {
         if (show && emailId === id) {
@@ -16,7 +20,6 @@ export const EmailCardList = ({ showEmailBody, setShowEmailBody }) => {
         } 
         
         setShowEmailBody({ show: true, emailId: id});
-
         dispatch(addToRead(id));
         dispatch(setEmailDetails({ 
             initial: name[0].toUpperCase(),
@@ -30,10 +33,10 @@ export const EmailCardList = ({ showEmailBody, setShowEmailBody }) => {
         <div className="ec-list-wr u_fx-col">
             {listLoading && <p>Loading mails...</p>}
             {listLoadingError && <p>Unable to load emails.</p>}
-
+            {filteredEmailList.length === 0 && <p>No email matches this filter.</p>}
             {
-                emailList.length > 0 && !listLoading && 
-                emailList?.map((currEmail) => {
+                filteredEmailList.length > 0 && !listLoading && 
+                filteredEmailList?.map((currEmail) => {
                     const { id, from, date, subject } = currEmail;
                     return(
                         <EmailCard 
