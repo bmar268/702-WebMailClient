@@ -12,7 +12,7 @@ const initialState = {
 export const fetchEmailList = createAsyncThunk(
     "emailList/fetchEmailList",
     async (pageNumber) => {
-        let data = await getEmailList(pageNumber);
+        const data = await getEmailList(pageNumber);
         return data;
     }
 );

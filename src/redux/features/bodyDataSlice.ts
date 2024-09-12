@@ -13,7 +13,7 @@ const initialState = {
 export const fetchEmailBody = createAsyncThunk(
     "emaiBody/fetchEmailBody",
     async (id) => {
-        let data = await getEmailBody(id);
+        const data = await getEmailBody(id);
         return data;
     }
 );
