@@ -39,10 +39,15 @@ export const EmailCardList = ({
     emailList,
     currFilter,
     favorites,
-    read
+    read,
   );
 
-  const emailCardClickHandler = (id: string, name: string, date: string, subject: string) => {
+  const emailCardClickHandler = (
+    id: string,
+    name: string,
+    date: string,
+    subject: string,
+  ) => {
     if (show && emailId === id) {
       return setShowEmailBody({ show: false, emailId: "" });
     }
@@ -54,7 +59,7 @@ export const EmailCardList = ({
         initial: name[0].toUpperCase(),
         subject: subject,
         date: getDateTimeFormat(date),
-      })
+      }),
     );
     dispatch(fetchEmailBody(id));
   };

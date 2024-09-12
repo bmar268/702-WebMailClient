@@ -3,8 +3,8 @@ import emailListDataSlice from "../features/listDataSlice";
 import emailBodyDataSlice from "../features/bodyDataSlice";
 
 export const store = configureStore({
-    reducer: {
-        emailList: emailListDataSlice,
-        emailBody: emailBodyDataSlice
-    },
+  reducer: {
+    emailList: emailListDataSlice,
+    emailBody: emailBodyDataSlice,
+  },
 });
