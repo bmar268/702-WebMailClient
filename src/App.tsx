@@ -16,12 +16,26 @@ function App() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedFlagOption, setSelectedFlagOption] = useState("On Open");
   const [isHoveringLink, setIsHoveringLink] = useState(false);
+  const [showDelayedChatbot, setShowDelayedChatbot] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchEmailList(currPage));
   }, [currPage]);
+
+  useEffect(() => {
+    let delayTimeout;
+    if (selectedFlagOption === "On Delay" && showEmailBody.show) {
+      delayTimeout = setTimeout(() => {
+        setShowDelayedChatbot(true);
+      }, 10000);
+    } else {
+      setShowDelayedChatbot(false);
+      clearTimeout(delayTimeout);
+    }
+    return () => clearTimeout(delayTimeout);
+  }, [selectedFlagOption, showEmailBody.show]);
 
   const handleFlagOptionChange = (option: string) => {
     setSelectedFlagOption(option);
@@ -76,16 +90,28 @@ function App() {
                   On Open
                 </li>
                 <li
-                  className={selectedFlagOption === "On Hover" ? "selected" : ""}
+                  className={
+                    selectedFlagOption === "On Hover" ? "selected" : ""
+                  }
                   onClick={() => handleFlagOptionChange("On Hover")}
                 >
                   On Hover
                 </li>
                 <li
-                  className={selectedFlagOption === "Always On" ? "selected" : ""}
+                  className={
+                    selectedFlagOption === "Always On" ? "selected" : ""
+                  }
                   onClick={() => handleFlagOptionChange("Always On")}
                 >
                   Always On
+                </li>
+                <li
+                  className={
+                    selectedFlagOption === "On Delay" ? "selected" : ""
+                  }
+                  onClick={() => handleFlagOptionChange("On Delay")}
+                >
+                  On Delay
                 </li>
               </ul>
             )}
@@ -134,7 +160,8 @@ function App() {
 
       {(selectedFlagOption === "Always On" ||
         (selectedFlagOption === "On Open" && showEmailBody.show) ||
-        (selectedFlagOption === "On Hover" && isHoveringLink)) && (
+        (selectedFlagOption === "On Hover" && isHoveringLink) ||
+        (selectedFlagOption === "On Delay" && showDelayedChatbot)) && (
         <div className="chatbot-indicator">chatbot</div>
       )}
     </div>
