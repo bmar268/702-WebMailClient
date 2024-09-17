@@ -4,7 +4,7 @@ import { addToFavorites, removeFromFavorites } from "../../redux";
 import "../components-utility.css";
 import "./email-body.css";
 
-export const EmailBody = () => {
+export const EmailBody = ({ setIsHoveringLink }) => {
   const {
     bodyLoading,
     bodyLoadingError,
@@ -17,6 +17,9 @@ export const EmailBody = () => {
   const dispatch = useDispatch();
 
   const bodyContent = body ? parse(body) : "";
+
+  const handleMouseEnter = () => setIsHoveringLink(true);
+  const handleMouseLeave = () => setIsHoveringLink(false);
 
   return bodyLoading ? (
     <p>Loading email contents...</p>
@@ -53,7 +56,13 @@ export const EmailBody = () => {
           )}
         </section>
 
-        <section className="email-body-content">{bodyContent}</section>
+        <section
+          className="email-body-content"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {bodyContent}
+        </section>
       </div>
     </div>
   );

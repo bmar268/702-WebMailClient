@@ -13,12 +13,20 @@ function App() {
     show: false,
     emailId: "",
   });
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedFlagOption, setSelectedFlagOption] = useState("On Open");
+  const [isHoveringLink, setIsHoveringLink] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchEmailList(currPage));
   }, [currPage]);
+
+  const handleFlagOptionChange = (option: string) => {
+    setSelectedFlagOption(option);
+    setIsDropdownOpen(false);
+  };
 
   return (
     <div className="App page-wr u_fx-col">
@@ -52,6 +60,36 @@ function App() {
           <button className="header-btn" onClick={() => setCurrFilter("CLEAR")}>
             Clear filter
           </button>
+          <div className="dropdown">
+            <button
+              className="header-btn"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              Change Flag
+            </button>
+            {isDropdownOpen && (
+              <ul className="dropdown-menu">
+                <li
+                  className={selectedFlagOption === "On Open" ? "selected" : ""}
+                  onClick={() => handleFlagOptionChange("On Open")}
+                >
+                  On Open
+                </li>
+                <li
+                  className={selectedFlagOption === "On Hover" ? "selected" : ""}
+                  onClick={() => handleFlagOptionChange("On Hover")}
+                >
+                  On Hover
+                </li>
+                <li
+                  className={selectedFlagOption === "Always On" ? "selected" : ""}
+                  onClick={() => handleFlagOptionChange("Always On")}
+                >
+                  Always On
+                </li>
+              </ul>
+            )}
+          </div>
         </section>
 
         <section className="header-sec u_fx-row u_fx-al-cn">
@@ -89,10 +127,16 @@ function App() {
         </aside>
         {showEmailBody.show && (
           <main className="main-email-body">
-            <EmailBody />
+            <EmailBody setIsHoveringLink={setIsHoveringLink} />
           </main>
         )}
       </div>
+
+      {(selectedFlagOption === "Always On" ||
+        (selectedFlagOption === "On Open" && showEmailBody.show) ||
+        (selectedFlagOption === "On Hover" && isHoveringLink)) && (
+        <div className="chatbot-indicator">chatbot</div>
+      )}
     </div>
   );
 }
