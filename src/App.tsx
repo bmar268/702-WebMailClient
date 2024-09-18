@@ -25,7 +25,7 @@ function App() {
   }, [currPage]);
 
   useEffect(() => {
-    let delayTimeout;
+    let delayTimeout: number | undefined;
     if (selectedFlagOption === "On Delay" && showEmailBody.show) {
       delayTimeout = setTimeout(() => {
         setShowDelayedChatbot(true);
