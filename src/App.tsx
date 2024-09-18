@@ -17,6 +17,7 @@ function App() {
   const [selectedFlagOption, setSelectedFlagOption] = useState("On Open");
   const [isHoveringLink, setIsHoveringLink] = useState(false);
   const [showDelayedChatbot, setShowDelayedChatbot] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false)
 
   const dispatch = useDispatch();
 
@@ -25,8 +26,16 @@ function App() {
   }, [currPage]);
 
   useEffect(() => {
+    if (selectedFlagOption === "On Hover" && isHoveringLink) {
+      setShowChatbot(true);
+    }
+  }, [selectedFlagOption, isHoveringLink]);
+
+  useEffect(() => {
+    console.log("fucks");
     let delayTimeout: number | undefined;
     if (selectedFlagOption === "On Delay" && showEmailBody.show) {
+      setShowDelayedChatbot(false);
       delayTimeout = setTimeout(() => {
         setShowDelayedChatbot(true);
       }, 10000);
@@ -35,11 +44,21 @@ function App() {
       clearTimeout(delayTimeout);
     }
     return () => clearTimeout(delayTimeout);
-  }, [selectedFlagOption, showEmailBody.show]);
+  }, [selectedFlagOption, showEmailBody.show, showEmailBody.emailId]);
+
+  useEffect(() => {
+    if (selectedFlagOption === "On Hover") {
+      setShowChatbot(false);
+    }
+  }, [selectedFlagOption, showEmailBody.emailId]);
 
   const handleFlagOptionChange = (option: string) => {
     setSelectedFlagOption(option);
     setIsDropdownOpen(false);
+  };
+
+  const handleEmailSelection = (emailId: string) => {
+    setShowChatbot(false); // Reset chatbot visibility when a different email is selected
   };
 
   return (
@@ -160,7 +179,7 @@ function App() {
 
       {(selectedFlagOption === "Always On" ||
         (selectedFlagOption === "On Open" && showEmailBody.show) ||
-        (selectedFlagOption === "On Hover" && isHoveringLink) ||
+        (selectedFlagOption === "On Hover" && showChatbot) ||
         (selectedFlagOption === "On Delay" && showDelayedChatbot)) && (
         <div className="chatbot-indicator">chatbot</div>
       )}
