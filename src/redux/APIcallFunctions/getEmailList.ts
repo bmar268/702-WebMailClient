@@ -3,7 +3,6 @@ import axios from "axios";
 export const getEmailList = async (pageNumber: void) => {
   try {
     const response = await axios.get(
-      // `https://flipkart-email-mock.now.sh/?page=${pageNumber}`,
       `https://custom-email-server.vercel.app/page?page=${pageNumber}`
     );
 
