@@ -13,12 +13,53 @@ function App() {
     show: false,
     emailId: "",
   });
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedFlagOption, setSelectedFlagOption] = useState("On Open");
+  const [isHoveringLink, setIsHoveringLink] = useState(false);
+  const [showDelayedChatbot, setShowDelayedChatbot] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchEmailList(currPage));
   }, [currPage]);
+
+  useEffect(() => {
+    if (selectedFlagOption === "On Hover" && isHoveringLink) {
+      setShowChatbot(true);
+    }
+  }, [selectedFlagOption, isHoveringLink]);
+
+  useEffect(() => {
+    console.log("fucks");
+    let delayTimeout: number | undefined;
+    if (selectedFlagOption === "On Delay" && showEmailBody.show) {
+      setShowDelayedChatbot(false);
+      delayTimeout = setTimeout(() => {
+        setShowDelayedChatbot(true);
+      }, 10000);
+    } else {
+      setShowDelayedChatbot(false);
+      clearTimeout(delayTimeout);
+    }
+    return () => clearTimeout(delayTimeout);
+  }, [selectedFlagOption, showEmailBody.show, showEmailBody.emailId]);
+
+  useEffect(() => {
+    if (selectedFlagOption === "On Hover") {
+      setShowChatbot(false);
+    }
+  }, [selectedFlagOption, showEmailBody.emailId]);
+
+  const handleFlagOptionChange = (option: string) => {
+    setSelectedFlagOption(option);
+    setIsDropdownOpen(false);
+  };
+
+  const handleEmailSelection = (emailId: string) => {
+    setShowChatbot(false); // Reset chatbot visibility when a different email is selected
+  };
 
   return (
     <div className="App page-wr u_fx-col">
@@ -52,6 +93,48 @@ function App() {
           <button className="header-btn" onClick={() => setCurrFilter("CLEAR")}>
             Clear filter
           </button>
+          <div className="dropdown">
+            <button
+              className="header-btn"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              Change Flag
+            </button>
+            {isDropdownOpen && (
+              <ul className="dropdown-menu">
+                <li
+                  className={selectedFlagOption === "On Open" ? "selected" : ""}
+                  onClick={() => handleFlagOptionChange("On Open")}
+                >
+                  On Open
+                </li>
+                <li
+                  className={
+                    selectedFlagOption === "On Hover" ? "selected" : ""
+                  }
+                  onClick={() => handleFlagOptionChange("On Hover")}
+                >
+                  On Hover
+                </li>
+                <li
+                  className={
+                    selectedFlagOption === "Always On" ? "selected" : ""
+                  }
+                  onClick={() => handleFlagOptionChange("Always On")}
+                >
+                  Always On
+                </li>
+                <li
+                  className={
+                    selectedFlagOption === "On Delay" ? "selected" : ""
+                  }
+                  onClick={() => handleFlagOptionChange("On Delay")}
+                >
+                  On Delay
+                </li>
+              </ul>
+            )}
+          </div>
         </section>
 
         <section className="header-sec u_fx-row u_fx-al-cn">
@@ -89,10 +172,17 @@ function App() {
         </aside>
         {showEmailBody.show && (
           <main className="main-email-body">
-            <EmailBody />
+            <EmailBody setIsHoveringLink={setIsHoveringLink} />
           </main>
         )}
       </div>
+
+      {(selectedFlagOption === "Always On" ||
+        (selectedFlagOption === "On Open" && showEmailBody.show) ||
+        (selectedFlagOption === "On Hover" && showChatbot) ||
+        (selectedFlagOption === "On Delay" && showDelayedChatbot)) && (
+        <div className="chatbot-indicator">chatbot</div>
+      )}
     </div>
   );
 }
