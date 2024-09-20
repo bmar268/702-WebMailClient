@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@botpress/webchat": "^2.1.14",
+    "@botpress/webchat-generator": "^0.2.13",
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.7",
     "eslint-config-prettier": "^9.1.0",
