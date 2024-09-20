@@ -9,8 +9,8 @@ import { Webchat, WebchatProvider, Fab, getClient } from "@botpress/webchat";
 import { buildTheme } from "@botpress/webchat-generator";
 
 const { theme, style } = buildTheme({
-  themeName: "prism",
-  themeColor: "#634433",
+  themeName: "dawn",
+  themeColor: "#ECB7C1",
 });
 
 const clientId = "eadb5357-aa8f-4cf1-97b9-32bf71f4ab14";
