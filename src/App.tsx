@@ -13,7 +13,7 @@ const { theme, style } = buildTheme({
   themeColor: "#634433",
 });
 
-const clientId = "1ad43f34-0e79-4a3f-ae79-484a93a83368";
+const clientId = "eadb5357-aa8f-4cf1-97b9-32bf71f4ab14";
 
 function App() {
   const [currFilter, setCurrFilter] = useState("");
