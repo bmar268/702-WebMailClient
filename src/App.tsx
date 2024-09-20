@@ -5,6 +5,15 @@ import "./styles/app.css";
 import { fetchEmailList } from "./redux";
 import { EmailBody } from "./components/email-body/EmailBody";
 import { EmailCardList } from "./components/email-card-list/EmailCardList";
+import { Webchat, WebchatProvider, Fab, getClient } from "@botpress/webchat";
+import { buildTheme } from "@botpress/webchat-generator";
+
+const { theme, style } = buildTheme({
+  themeName: "prism",
+  themeColor: "#634433",
+});
+
+const clientId = "1ad43f34-0e79-4a3f-ae79-484a93a83368";
 
 function App() {
   const [currFilter, setCurrFilter] = useState("");
@@ -17,9 +26,16 @@ function App() {
   const [selectedFlagOption, setSelectedFlagOption] = useState("On Open");
   const [isHoveringLink, setIsHoveringLink] = useState(false);
   const [showDelayedChatbot, setShowDelayedChatbot] = useState(false);
-  const [showChatbot, setShowChatbot] = useState(false)
+  const [showChatbot, setShowChatbot] = useState(false);
 
   const dispatch = useDispatch();
+
+  const client = getClient({ clientId });
+  const [isWebchatOpen, setIsWebchatOpen] = useState(false);
+
+  const toggleWebchat = () => {
+    setIsWebchatOpen((prevState) => !prevState);
+  };
 
   useEffect(() => {
     dispatch(fetchEmailList(currPage));
@@ -181,7 +197,20 @@ function App() {
         (selectedFlagOption === "On Open" && showEmailBody.show) ||
         (selectedFlagOption === "On Hover" && showChatbot) ||
         (selectedFlagOption === "On Delay" && showDelayedChatbot)) && (
-        <div className="chatbot-indicator">chatbot</div>
+        <div className="chatbot-indicator">
+          <style>{style}</style>
+          <WebchatProvider theme={theme} client={client}>
+            <Fab onClick={toggleWebchat} />
+            <div
+              className="chatbot-window"
+              style={{
+                display: isWebchatOpen ? "block" : "none",
+              }}
+            >
+              <Webchat />
+            </div>
+          </WebchatProvider>
+        </div>
       )}
     </div>
   );
