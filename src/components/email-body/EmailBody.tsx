@@ -3,6 +3,7 @@ import parse from "html-react-parser";
 import { addToFavorites, removeFromFavorites } from "../../redux";
 import "../components-utility.css";
 import "./email-body.css";
+import { useEffect, useState } from "react";
 
 export const EmailBody = ({ setIsHoveringLink }) => {
   const {
@@ -18,8 +19,36 @@ export const EmailBody = ({ setIsHoveringLink }) => {
 
   const bodyContent = body ? parse(body) : "";
 
-  const handleMouseEnter = () => setIsHoveringLink(true);
-  const handleMouseLeave = () => setIsHoveringLink(false);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const handleMouseOver = (event: MouseEvent) => {
+      if ((event.target as HTMLElement).tagName === 'A') {
+        const timeout = setTimeout(() => {
+          setIsHoveringLink(true);
+        }, 500);
+        setHoverTimeout(timeout);
+      }
+    };
+
+    const handleMouseOut = (event: MouseEvent) => {
+      if ((event.target as HTMLElement).tagName === 'A') {
+        if (hoverTimeout) {
+          clearTimeout(hoverTimeout);
+          setHoverTimeout(null);
+        }
+        setIsHoveringLink(false);
+      }
+    };
+
+    document.addEventListener('mouseover', handleMouseOver);
+    document.addEventListener('mouseout', handleMouseOut);
+
+    return () => {
+      document.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mouseout', handleMouseOut);
+    };
+  }, [setIsHoveringLink, hoverTimeout]);
 
   return bodyLoading ? (
     <p>Loading email contents...</p>
@@ -58,8 +87,6 @@ export const EmailBody = ({ setIsHoveringLink }) => {
 
         <section
           className="email-body-content"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
         >
           {bodyContent}
         </section>
