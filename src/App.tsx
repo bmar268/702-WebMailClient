@@ -31,7 +31,7 @@ function App() {
   const dispatch = useDispatch();
 
   const client = getClient({ clientId });
-  const [isWebchatOpen, setIsWebchatOpen] = useState(false);
+  const [isWebchatOpen, setIsWebchatOpen] = useState(true);
 
   const toggleWebchat = () => {
     setIsWebchatOpen((prevState) => !prevState);
@@ -48,7 +48,6 @@ function App() {
   }, [selectedFlagOption, isHoveringLink]);
 
   useEffect(() => {
-    console.log("fucks");
     let delayTimeout: number | undefined;
     if (selectedFlagOption === "On Delay" && showEmailBody.show) {
       setShowDelayedChatbot(false);
