@@ -49,6 +49,7 @@ function App() {
   }, [selectedFlagOption, isHoveringLink]);
 
   useEffect(() => {
+    setIsWebchatOpen(true);
     let delayTimeout: number | undefined;
     if (selectedFlagOption === "On Delay" && showEmailBody.show) {
       setShowDelayedChatbot(false);
@@ -71,10 +72,6 @@ function App() {
   const handleFlagOptionChange = (option: string) => {
     setSelectedFlagOption(option);
     setIsDropdownOpen(false);
-  };
-
-  const handleEmailSelection = (emailId: string) => {
-    setShowChatbot(false); // Reset chatbot visibility when a different email is selected
   };
 
   return (
@@ -203,12 +200,11 @@ function App() {
             <Fab onClick={toggleWebchat} />
             <div
               style={{
-                display: isWebchatOpen ? "block" : "none",
                 position: "absolute",
                 bottom: "6rem",
                 right: "0",
-                width: "350px",
-                height: "500px",
+                width: isWebchatOpen ? "350px" : "0",
+                height: isWebchatOpen ? "500px" : "0",
                 boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
               }}
             >
