@@ -7,6 +7,7 @@ import { EmailBody } from "./components/email-body/EmailBody";
 import { EmailCardList } from "./components/email-card-list/EmailCardList";
 import { Webchat, WebchatProvider, Fab, getClient } from "@botpress/webchat";
 import { buildTheme } from "@botpress/webchat-generator";
+import root from "react-shadow";
 
 const { theme, style } = buildTheme({
   themeName: "dawn",
@@ -196,20 +197,25 @@ function App() {
         (selectedFlagOption === "On Open" && showEmailBody.show) ||
         (selectedFlagOption === "On Hover" && showChatbot) ||
         (selectedFlagOption === "On Delay" && showDelayedChatbot)) && (
-        <div className="chatbot-indicator">
+        <root.div className="chatbot-indicator">
           <style>{style}</style>
           <WebchatProvider theme={theme} client={client}>
             <Fab onClick={toggleWebchat} />
             <div
-              className="chatbot-window"
               style={{
                 display: isWebchatOpen ? "block" : "none",
+                position: "absolute",
+                bottom: "6rem",
+                right: "0",
+                width: "350px",
+                height: "500px",
+                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
               }}
             >
               <Webchat />
             </div>
           </WebchatProvider>
-        </div>
+        </root.div>
       )}
     </div>
   );
