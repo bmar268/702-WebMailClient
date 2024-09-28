@@ -7,6 +7,7 @@ import { EmailBody } from "./components/email-body/EmailBody";
 import { EmailCardList } from "./components/email-card-list/EmailCardList";
 import { Webchat, WebchatProvider, Fab, getClient } from "@botpress/webchat";
 import { buildTheme } from "@botpress/webchat-generator";
+import root from "react-shadow";
 
 const { theme, style } = buildTheme({
   themeName: "dawn",
@@ -31,7 +32,7 @@ function App() {
   const dispatch = useDispatch();
 
   const client = getClient({ clientId });
-  const [isWebchatOpen, setIsWebchatOpen] = useState(false);
+  const [isWebchatOpen, setIsWebchatOpen] = useState(true);
 
   const toggleWebchat = () => {
     setIsWebchatOpen((prevState) => !prevState);
@@ -48,7 +49,7 @@ function App() {
   }, [selectedFlagOption, isHoveringLink]);
 
   useEffect(() => {
-    console.log("fucks");
+    setIsWebchatOpen(true);
     let delayTimeout: number | undefined;
     if (selectedFlagOption === "On Delay" && showEmailBody.show) {
       setShowDelayedChatbot(false);
@@ -71,10 +72,6 @@ function App() {
   const handleFlagOptionChange = (option: string) => {
     setSelectedFlagOption(option);
     setIsDropdownOpen(false);
-  };
-
-  const handleEmailSelection = (emailId: string) => {
-    setShowChatbot(false); // Reset chatbot visibility when a different email is selected
   };
 
   return (
@@ -197,20 +194,24 @@ function App() {
         (selectedFlagOption === "On Open" && showEmailBody.show) ||
         (selectedFlagOption === "On Hover" && showChatbot) ||
         (selectedFlagOption === "On Delay" && showDelayedChatbot)) && (
-        <div className="chatbot-indicator">
+        <root.div className="chatbot-indicator">
           <style>{style}</style>
           <WebchatProvider theme={theme} client={client}>
             <Fab onClick={toggleWebchat} />
             <div
-              className="chatbot-window"
               style={{
-                display: isWebchatOpen ? "block" : "none",
+                position: "absolute",
+                bottom: "6rem",
+                right: "0",
+                width: isWebchatOpen ? "350px" : "0",
+                height: isWebchatOpen ? "500px" : "0",
+                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
               }}
             >
               <Webchat />
             </div>
           </WebchatProvider>
-        </div>
+        </root.div>
       )}
     </div>
   );
