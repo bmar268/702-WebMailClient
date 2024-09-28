@@ -26,7 +26,7 @@ export const EmailBody = ({ setIsHoveringLink }) => {
       if ((event.target as HTMLElement).tagName === 'A') {
         const timeout = setTimeout(() => {
           setIsHoveringLink(true);
-        }, 500);
+        }, 200);
         setHoverTimeout(timeout);
       }
     };
