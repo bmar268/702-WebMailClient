@@ -34,5 +34,8 @@ The application includes multiple different options for controlling when the cha
 
 To choose which timing condition you wish to use, simply click the 'Change Flag' button as seen below:
 
+<img width="895" alt="image" src="https://github.com/user-attachments/assets/829b0015-0e66-4928-b012-e46cd813b256">
+
+
 ## Attributions
 This repository is a fork. The original repository, created by [Raiee Gulhane](https://github.com/raieegulhane), can be found [here](https://github.com/raieegulhane/email-client-app)
